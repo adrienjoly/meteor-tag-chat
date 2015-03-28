@@ -1,10 +1,21 @@
 Router.map(function () {
-  this.route('home', {
-    path: '/' // match the root path
-  });
+  this.route('welcome', { path: '/' });
+  this.route('chatroom', { path: '/chatroom/:_id' });
 });
 
 // Templates
+
+Template.welcome.helpers({
+  chatrooms: function() {
+    return [
+      {_id:"abc", name:"coucou"}
+    ];//Messages.find({}, { sort: { time: -1}});
+  }
+});
+
+Template.chatroom.params = function(){
+    return Router.current().params;
+};
 
 Template.messages.helpers({
   messages: function() {

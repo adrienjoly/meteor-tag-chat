@@ -4,19 +4,21 @@
 
 <body>
   {{> loginButtons align="right"}}<br>
-  <h1>Tag Chat Prototype</h1>
 </body>
 
-<template name="home">
-  {{> welcome }}
-  {{> input }}
-  {{> messages }}
+<template name="welcome">
+  <h1>Tag Chat Prototype</h1>
+  <ul>
+  {{#each chatrooms}}
+    <li><a target="_blank" href="/chatroom/{{_id}}">{{name}}</a></li>
+  {{/each}}    
+  </ul>
 </template>
 
-<template name="welcome">
-  <p>
-    Welcome to the chat!
-  </p>
+<template name="chatroom">
+  <h1>Chat room: {{params._id}}</h1>
+  {{> input }}
+  {{> messages }}
 </template>
 
 <template name="messages">
