@@ -5,6 +5,10 @@ Router.map(function () {
   this.route('chatroom', { path: '/chatroom/:_id' });
 });
 
+Router.onAfterAction(function() {
+  document.title = 'Chat - ' + this.route.getName();
+});
+
 // Templates
 
 Template.welcome.helpers({
