@@ -1,7 +1,7 @@
-meteor-chat-tutorial
-====================
+meteor-tag-chat
+===============
 
-This is an example [Meteor](http://www.meteor.com) application. It's a basic chat app where users login using their GitHub accounts to chat. Please read the tutorial at [sebastiandahlgren.se](http://sebastiandahlgren.se)
+This project is a prototype based on [sebastian dahlgren's meteor-chat-tutorial](http://sebastiandahlgren.se/2013/07/17/tutorial-writing-your-first-metor-application/) example [Meteor](http://www.meteor.com) application. It's a basic chat app where users login using their GitHub accounts to chat.
 
 License
 -------
