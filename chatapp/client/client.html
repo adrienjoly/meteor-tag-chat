@@ -1,10 +1,15 @@
-<head>
-  <title>Tag Chat Prototype</title>
-</head>
-
-<body>
+<template name="layout">
   {{> loginButtons align="right"}}<br>
-</body>
+  {{#unless currentUser}}
+    {{> loginPage}}
+   {{else}}
+    {{> yield}}
+  {{/unless}}
+</template>
+
+<template name="loginPage">
+  please login
+</template>
 
 <template name="welcome">
   <h1>Tag Chat Prototype</h1>

@@ -1,3 +1,5 @@
+Router.configure({ layoutTemplate: 'layout', loadingTemplate: 'loading' });
+
 Router.map(function () {
   this.route('welcome', { path: '/' });
   this.route('chatroom', { path: '/chatroom/:_id' });
