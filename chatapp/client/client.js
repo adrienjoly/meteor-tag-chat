@@ -9,9 +9,7 @@ Router.map(function () {
 
 Template.welcome.helpers({
   chatrooms: function() {
-    return [
-      {_id:"abc", name:"coucou"}
-    ];//Messages.find({}, { sort: { time: -1}});
+    return Meteor.users.find({}); //[ {_id:"abc", name:"coucou"} ];
   }
 });
 
