@@ -1,3 +1,9 @@
+Router.map(function () {
+  this.route('home', {
+    path: '/' // match the root path
+  });
+});
+
 /**
 * Templates
 */
