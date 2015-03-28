@@ -4,14 +4,13 @@ Router.map(function () {
   });
 });
 
-/**
-* Templates
-*/
+// Templates
+
 Template.messages.helpers({
-    messages: function() {
-        return Messages.find({}, { sort: { time: -1}});
-    }
-})
+  messages: function() {
+    return Messages.find({}, { sort: { time: -1}});
+  }
+});
 
 Template.input.events = {
   'keydown input#message' : function (event) {
@@ -35,3 +34,4 @@ Template.input.events = {
     }
   }
 }
+};
