@@ -37,6 +37,11 @@ Template.home.events = {
   }
 };
 
+Template.home.rendered = function(){
+  console.log("rendered")
+  drawTagsInCanvas([1,2,3], "myCanvas1");
+};
+
 // Chat room page
 
 Template.chatroom.helpers({
