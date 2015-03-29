@@ -9,6 +9,12 @@ Router.onAfterAction(function() {
   document.title = 'Chat - ' + this.route.getName();
 });
 
+// Models
+
+Meteor.subscribe("myMessages");
+
+Meteor.subscribe("userData");
+
 // Home page
 
 Template.home.helpers({
