@@ -17,12 +17,11 @@
 
 <template name="home">
   <h1>Tag Chat Prototype</h1>
-  <p>Your tags:
-    <form id="mytagsForm">
-      <input type="text" id="mytags" placeholder="paris, piano, zzz" value="{{mytagsStr}}">
-      <input type="submit" name="ok" value="OK">
-    </form>
-  </p>
+  <form id="mytagsForm">
+    My tags:
+    <input type="text" id="mytags" placeholder="paris, piano, zzz" value="{{mytagsStr}}">
+    <input type="submit" name="ok" value="OK">
+  </form>
   <h2>Chat rooms:</h2>
   <ul>
   {{#each chatrooms}}
