@@ -6,3 +6,19 @@ html {
 .login-buttons-dropdown-align-right {
   float: right;
 }
+
+.discushape {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #eee;
+}
+
+.discushape > canvas {
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  touch-action: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

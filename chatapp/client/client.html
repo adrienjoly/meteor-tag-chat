@@ -7,18 +7,19 @@
   {{/unless}}
 </template>
 
-<!-- login page -->
+<!-- common/shared templates -->
 
 <template name="loginPage">
   please login
 </template>
 
+<template name="discushape">
+  <a target="_blank" href="/chatroom/{{_id}}" class="discushape new" data-tags="{{tagsOrId}}"></a>
+</template>
+
 <!-- home page (after login) -->
 
 <template name="home">
-
-  <canvas id="myCanvas1" width="200" height="200" style="-webkit-user-select: none; touch-action: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas>
-
   <h1>Tag Chat Prototype</h1>
   <form id="mytagsForm">
     My tags:
@@ -28,7 +29,7 @@
   <h2>Chat rooms:</h2>
   <ul>
   {{#each chatrooms}}
-    <li><a target="_blank" href="/chatroom/{{_id}}">{{tagsOrId}}</a></li>
+    <li>{{> discushape}}</li>
   {{/each}}    
   </ul>
 </template>

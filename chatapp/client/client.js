@@ -1,3 +1,5 @@
+// Routing
+
 Router.configure({ layoutTemplate: 'layout', loadingTemplate: 'loading' });
 
 Router.map(function () {
@@ -14,6 +16,20 @@ Router.onAfterAction(function() {
 Meteor.subscribe("myMessages");
 
 Meteor.subscribe("userData");
+
+// Common functions
+
+Template.discushape.rendered = function drawShapes(i){
+  $(".discushape.new").each(function(i, discushape){
+    var $discushape = $(discushape);
+    var tags = $discushape.attr("data-tags");
+    if (window.drawTagsInCanvas)
+      drawTagsInCanvas($discushape.attr("data-tags").split(" "), $('<canvas>').appendTo($discushape)[0]);
+    else
+      $(discushape).text(tags);
+    $discushape.removeClass("new");
+  });
+}
 
 // Home page
 
@@ -35,11 +51,6 @@ Template.home.events = {
     // Prevent default form submit
     return false;
   }
-};
-
-Template.home.rendered = function(){
-  console.log("rendered")
-  drawTagsInCanvas([1,2,3], "myCanvas1");
 };
 
 // Chat room page
