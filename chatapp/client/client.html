@@ -37,6 +37,9 @@
 <!-- chat room page -->
 
 <template name="chatroom">
+  {{#with otherUser}}
+    {{> discushape}}
+  {{/with}}
   <h1>Chat room: {{otherUser.tagsOrId}}</h1>
   <p>Message: <input type="text" id="message"></p>
   {{#each messages}}
