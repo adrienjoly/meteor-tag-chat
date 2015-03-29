@@ -19,8 +19,7 @@ Meteor.subscribe("userData");
 
 Template.home.helpers({
   mytagsStr: function() {
-    var user = Meteor.user();
-    return (user.tags || []).join(", ") || "(" + user._id + ")";
+    return (Meteor.user().tags || []).join(", ");
   },
   chatrooms: function() {
     return Meteor.users.find({}); //[ {_id:"abc", name:"coucou"} ];
@@ -43,6 +42,9 @@ Template.home.events = {
 Template.chatroom.helpers({
   params: function(){
     return Router.current().params;
+  },
+  otherUser: function(){
+    return Meteor.users.findOne(Router.current().params._id);
   },
   messages: function() {
     return Messages.find({}, { sort: { time: -1}});

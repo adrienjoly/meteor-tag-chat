@@ -9,3 +9,4 @@ standard-app-packages
 accounts-password
 
 iron:router
+dburles:collection-helpers

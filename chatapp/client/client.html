@@ -26,7 +26,7 @@
   <h2>Chat rooms:</h2>
   <ul>
   {{#each chatrooms}}
-    <li><a target="_blank" href="/chatroom/{{_id}}">{{_id}}: {{tags}}</a></li>
+    <li><a target="_blank" href="/chatroom/{{_id}}">{{tagsOrId}}</a></li>
   {{/each}}    
   </ul>
 </template>
@@ -34,9 +34,9 @@
 <!-- chat room page -->
 
 <template name="chatroom">
-  <h1>Chat room: {{params._id}}</h1>
+  <h1>Chat room: {{otherUser.tagsOrId}}</h1>
   <p>Message: <input type="text" id="message"></p>
   {{#each messages}}
-    <strong>{{uId}}:</strong> {{message}}<br>
+    <strong>{{name}}:</strong> {{message}}<br>
   {{/each}}
 </template>
