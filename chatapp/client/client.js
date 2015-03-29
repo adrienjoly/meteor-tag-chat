@@ -18,11 +18,24 @@ Meteor.subscribe("userData");
 // Home page
 
 Template.home.helpers({
+  mytagsStr: function() {
+    var user = Meteor.user();
+    return (user.tags || []).join(", ") || "(" + user._id + ")";
+  },
   chatrooms: function() {
     return Meteor.users.find({}); //[ {_id:"abc", name:"coucou"} ];
   }
 });
 
+Template.home.events = {
+  'submit #mytagsForm' : function (event) {
+    event.preventDefault();
+    Meteor.users.update(Meteor.userId(), { $set: {
+      tags: document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/)
+    }});
+    // Prevent default form submit
+    return false;
+  }
 };
 
 // Chat room page
