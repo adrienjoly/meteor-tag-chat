@@ -1,7 +1,7 @@
 Router.configure({ layoutTemplate: 'layout', loadingTemplate: 'loading' });
 
 Router.map(function () {
-  this.route('welcome', { path: '/' });
+  this.route('home', { path: '/' });
   this.route('chatroom', { path: '/chatroom/:_id' });
 });
 
@@ -9,25 +9,27 @@ Router.onAfterAction(function() {
   document.title = 'Chat - ' + this.route.getName();
 });
 
-// Templates
+// Home page
 
-Template.welcome.helpers({
+Template.home.helpers({
   chatrooms: function() {
     return Meteor.users.find({}); //[ {_id:"abc", name:"coucou"} ];
   }
 });
 
+// Chat room page
+
 Template.chatroom.params = function(){
     return Router.current().params;
 };
 
-Template.messages.helpers({
+Template.chatroom.helpers({
   messages: function() {
     return Messages.find({}, { sort: { time: -1}});
   }
 });
 
-Template.input.events = {
+Template.chatroom.events = {
   'keydown input#message' : function (event) {
     if (event.which == 13) { // 13 is the enter key event
       var uId = (Meteor.user() || {})._id;
