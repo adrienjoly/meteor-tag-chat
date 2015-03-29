@@ -23,13 +23,14 @@ Template.home.helpers({
   }
 });
 
-// Chat room page
-
-Template.chatroom.params = function(){
-    return Router.current().params;
 };
 
+// Chat room page
+
 Template.chatroom.helpers({
+  params: function(){
+    return Router.current().params;
+  },
   messages: function() {
     return Messages.find({}, { sort: { time: -1}});
   }
