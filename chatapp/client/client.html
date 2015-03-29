@@ -14,7 +14,11 @@
 </template>
 
 <template name="discushape">
-  <a target="_blank" href="/chatroom/{{_id}}" class="discushape new" data-tags="{{tagsOrId}}"></a>
+  <div class="discushape new" data-tags="{{tagsOrId}}" title="{{tagsOrId}}"></div>
+</template>
+
+<template name="disculink">
+  <a target="_blank" href="/chatroom/{{_id}}" class="discushape new" data-tags="{{tagsOrId}}" title="{{tagsOrId}}"></a>
 </template>
 
 <!-- home page (after login) -->
@@ -29,7 +33,7 @@
   <h2>Chat rooms:</h2>
   <ul>
   {{#each chatrooms}}
-    <li>{{> discushape}}</li>
+    <li>{{> disculink}} {{tags}}</li>
   {{/each}}    
   </ul>
 </template>

@@ -19,7 +19,7 @@ Meteor.subscribe("userData");
 
 // Common functions
 
-Template.discushape.rendered = function drawShapes(i){
+function drawDiscushapes(){
   $(".discushape.new").each(function(i, discushape){
     var $discushape = $(discushape);
     var tags = $discushape.attr("data-tags");
@@ -30,6 +30,9 @@ Template.discushape.rendered = function drawShapes(i){
     $discushape.removeClass("new");
   });
 }
+
+Template.discushape.rendered = drawDiscushapes;
+Template.disculink.rendered = drawDiscushapes;
 
 // Home page
 

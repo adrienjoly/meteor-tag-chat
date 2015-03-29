@@ -11,7 +11,14 @@ html {
   display: inline-block;
   width: 100px;
   height: 100px;
+}
+
+a.discushape {
   border: 1px solid #eee;
+}
+
+a.discushape:hover {
+  border: 1px solid #555;
 }
 
 .discushape > canvas {
