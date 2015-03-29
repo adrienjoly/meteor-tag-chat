@@ -47,7 +47,11 @@ Template.chatroom.helpers({
     return Meteor.users.findOne(Router.current().params._id);
   },
   messages: function() {
-    return Messages.find({}, { sort: { time: -1}});
+    var otherUserId = Router.current().params._id;
+    return Messages.find({$or: [
+      { uId: Meteor.user()._id, to: otherUserId },
+      { uId: otherUserId, to: Meteor.user()._id }
+    ]}, {sort: {time: -1}});
   }
 });
 
@@ -59,6 +63,7 @@ Template.chatroom.events = {
       if (uId && message.value != '') {
         Messages.insert({
           uId: uId,
+          to: Router.current().params._id,
           message: message.value,
           time: Date.now(),
         });
