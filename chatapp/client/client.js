@@ -24,19 +24,25 @@ function drawDiscushapes(){
     var $discushape = $(discushape);
     var tags = $discushape.attr("data-tags");
     if (window.drawTagsInCanvas)
-      drawTagsInCanvas($discushape.attr("data-tags").split(" "), $('<canvas>').appendTo($discushape)[0]);
+      drawTagsInCanvas($discushape.attr("data-tags").split(" "), $('<canvas>').prependTo($discushape)[0]);
     else
       $(discushape).text(tags);
     $discushape.removeClass("new");
   });
 }
 
+Template.disculink.helpers({
+  isSelected: function(){
+    return this._id === Session.get('selectedThread');
+  }
+});
+
 function openChatRoom(id){
   $("body").addClass("chatting");
   Session.set("selectedThread", id);
 }
 
-Template.discushape.rendered = drawDiscushapes;
+//Template.discushape.rendered = drawDiscushapes;
 Template.disculink.rendered = drawDiscushapes;
 
 // Home page
@@ -54,7 +60,7 @@ Template.home.helpers({
 });
 
 Template.home.events = {
-  'click .disculink': function(event){
+  'click .discushape': function(event){
     event.preventDefault();
     openChatRoom($(event.currentTarget).attr("data-uid"));
   },

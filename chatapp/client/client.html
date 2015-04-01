@@ -12,16 +12,12 @@
   please login
 </template>
 
-<template name="discushape">
-  <div class="discushape new" data-tags="{{tagsOrId}}" title="{{tagsOrId}}"></div>
-</template>
-
 <template name="disculink">
   <a target="_blank" href="/chatroom/{{_id}}"
-     class="disculink discushape new"
+     class="discushape new {{#if isSelected}}selected{{/if}}"
      data-uid="{{_id}}"
      data-tags="{{tagsOrId}}"
-     title="{{tagsOrId}}"></a>
+     title="{{tagsOrId}}">{{tags}}</a>
 </template>
 
 <!-- home page (after login) -->
@@ -39,7 +35,7 @@
     <h2>Users:</h2>
     <ul>
     {{#each chatrooms}}
-      <li>{{> disculink}} {{tags}}</li>
+      <li>{{> disculink}}</li>
     {{/each}}    
     </ul>
   </div>
@@ -53,9 +49,6 @@
 <!-- chat room page -->
 
 <template name="chatroom">
-  {{#with otherUser}}
-    {{> discushape}}
-  {{/with}}
   <h1>User: {{otherUser.tagsOrId}}</h1>
   <p>Message: <input type="text" id="message"></p>
   {{#each messages}}
