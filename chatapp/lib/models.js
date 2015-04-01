@@ -1,4 +1,5 @@
 Messages = new Meteor.Collection('messages');
+Notifs = new Meteor.Collection('notifs');
 
 Messages.helpers({
   name: function(){

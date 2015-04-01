@@ -14,7 +14,7 @@ Router.onAfterAction(function() {
 // Models
 
 Meteor.subscribe("myMessages");
-
+Meteor.subscribe("myNotifs");
 Meteor.subscribe("userData");
 
 // Common functions
@@ -32,6 +32,9 @@ function drawDiscushapes(){
 }
 
 Template.disculink.helpers({
+  threadNotifs: function(){
+    return Notifs.find({ from: this._id, to: Meteor.userId() });
+  },
   isSelected: function(){
     return this._id === Session.get('selectedThread');
   }
@@ -40,6 +43,7 @@ Template.disculink.helpers({
 function openChatRoom(id){
   $("body").addClass("chatting");
   Session.set("selectedThread", id);
+  Meteor.call('clearNotifsFromUser', id);
 }
 
 //Template.discushape.rendered = drawDiscushapes;

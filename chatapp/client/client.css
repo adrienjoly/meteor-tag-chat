@@ -10,10 +10,15 @@ html {
 .discushape {
   display: block;
   overflow: auto;
+  padding: 5px;
 }
 
 .discushape.selected {
-  background: blue;
+  background: rgb(194, 230, 255);
+}
+
+.discushape > span {
+  background: red;
 }
 
 .discushape > canvas {

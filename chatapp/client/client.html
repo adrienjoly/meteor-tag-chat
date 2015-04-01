@@ -1,9 +1,5 @@
 <template name="layout">
-  {{#unless currentUser}}
-    {{> loginPage}}
-   {{else}}
     {{> yield}}
-  {{/unless}}
 </template>
 
 <!-- common/shared templates -->
@@ -17,7 +13,10 @@
      class="discushape new {{#if isSelected}}selected{{/if}}"
      data-uid="{{_id}}"
      data-tags="{{tagsOrId}}"
-     title="{{tagsOrId}}">{{tags}}</a>
+     title="{{tagsOrId}}">
+     {{tags}}
+     {{#if threadNotifs.count}}<span>({{threadNotifs.count}})</span>{{/if}}
+  </a>
 </template>
 
 <!-- home page (after login) -->
