@@ -26,11 +26,12 @@
 <template name="home">
   <h1>Tag Chat Prototype</h1>
   <form id="mytagsForm">
-    My tags:
-    <input type="text" id="mytags" placeholder="paris, piano, zzz" value="{{mytagsStr}}">
+    what are you about?
+    <input type="text" id="mytags" placeholder="paris, piano, zzz, ..." value="{{mytagsStr}}">
     <input type="submit" name="ok" value="OK">
   </form>
-  <h2>Chat rooms:</h2>
+  <p>have bits of talk with anyone sharing common interests with you at a specific moment. select topics and see who's about it too. shape your entourage, find people who care about the same things, at the same moment. jump in, talk to someone or be talked to. share moods, hobbies, ideas, desires, travels, services...</p>
+  <h2>Users:</h2>
   <ul>
   {{#each chatrooms}}
     <li>{{> disculink}} {{tags}}</li>
@@ -44,7 +45,7 @@
   {{#with otherUser}}
     {{> discushape}}
   {{/with}}
-  <h1>Chat room: {{otherUser.tagsOrId}}</h1>
+  <h1>User: {{otherUser.tagsOrId}}</h1>
   <p>Message: <input type="text" id="message"></p>
   {{#each messages}}
     <strong>{{name}}:</strong> {{message}}<br>
