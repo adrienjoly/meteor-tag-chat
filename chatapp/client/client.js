@@ -31,12 +31,20 @@ function drawDiscushapes(){
   });
 }
 
+function openChatRoom(id){
+  $("body").addClass("chatting");
+  Session.set("selectedThread", id);
+}
+
 Template.discushape.rendered = drawDiscushapes;
 Template.disculink.rendered = drawDiscushapes;
 
 // Home page
 
 Template.home.helpers({
+  selectedThread: function() {
+    return Session.get('selectedThread');
+  },
   mytagsStr: function() {
     return (Meteor.user().tags || []).join(", ");
   },
@@ -46,6 +54,10 @@ Template.home.helpers({
 });
 
 Template.home.events = {
+  'click .disculink': function(event){
+    event.preventDefault();
+    openChatRoom($(event.currentTarget).attr("data-uid"));
+  },
   'submit #mytagsForm' : function (event) {
     event.preventDefault();
     Meteor.users.update(Meteor.userId(), { $set: {
@@ -59,14 +71,16 @@ Template.home.events = {
 // Chat room page
 
 Template.chatroom.helpers({
+  /*
   params: function(){
     return Router.current().params;
   },
+  */
   otherUser: function(){
-    return Meteor.users.findOne(Router.current().params._id);
+    return Meteor.users.findOne(/*Router.current().params._id*/ Session.get("selectedThread"));
   },
   messages: function() {
-    var otherUserId = Router.current().params._id;
+    var otherUserId = Session.get("selectedThread"); //Router.current().params._id;
     return Messages.find({$or: [
       { uId: Meteor.user()._id, to: otherUserId },
       { uId: otherUserId, to: Meteor.user()._id }
@@ -82,7 +96,7 @@ Template.chatroom.events = {
       if (uId && message.value != '') {
         Messages.insert({
           uId: uId,
-          to: Router.current().params._id,
+          to: Session.get("selectedThread"), //Router.current().params._id,
           message: message.value,
           time: Date.now(),
         });
