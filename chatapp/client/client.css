@@ -47,14 +47,22 @@ li {
 
 .discushape p {
   line-height: 64px;
+  color: black;
 }
 
 .discushape.selected {
   background: rgb(194, 230, 255);
 }
 
-.discushape > span {
+.discushape.selected p {
+  color: white;
+}
+
+.discushape p span {
   background: red;
+  border-radius: 12px;
+  padding: 2px 6px;
+  color: white;
 }
 
 .discushape > canvas {
