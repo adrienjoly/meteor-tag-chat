@@ -9,11 +9,10 @@ Meteor.subscribe("userData");
 function drawDiscushapes(){
   $(".discushape.new").each(function(i, discushape){
     var $discushape = $(discushape);
-    var tags = $discushape.attr("data-tags");
     if (window.drawTagsInCanvas)
-      drawTagsInCanvas($discushape.attr("data-tags").split(" "), $('<canvas>').prependTo($discushape)[0]);
+      drawTagsInCanvas(this.tags, $('<canvas>').prependTo($discushape)[0]);
     else
-      $(discushape).text(tags);
+      $(discushape).text(this.tags);
     $discushape.removeClass("new");
   });
 }
