@@ -2,6 +2,10 @@ Fiber = Npm.require('fibers');
 
 var WORKER_INTERVAL = 10 * 1000;
 
+var PENDING_NOTIF_DELAY = 2 * 60 * 60 * 1000; // wait 2 hours before sending an email
+
+var NOTIF_MSG = "Open http://discuthing.meteor.com to check them out and keep the conversation going!";
+
 //var REGEXP_EMAIL = /^[^@]+@[^@\.]+\.[^@]+$/;
 
 function sendEmail(to, subject, text){
@@ -23,17 +27,19 @@ function groupNotifsByRecipient(notifs){
 function checkNotifs(){
   Fiber(function () {
     var now = new Date().getTime();
-    var twoHoursAgo = now - 2 * 60 * 60 * 1000;
+    var twoHoursAgo = now - PENDING_NOTIF_DELAY;
     var notifs = Notifs.find({time: {$lt: twoHoursAgo}}).fetch();
     if (!notifs.length)
       return;
     //console.log(notifs.map(function(a){return now - a.time}));
+    console.log("[emailNotifier] pending notifications:", notifs.length);
     var perRecipient = groupNotifsByRecipient(notifs);
     for (var uId in perRecipient) {
       var emailAddr = Meteor.users.findOne(uId).emails[0].address;
-      console.log("notifs:", perRecipient[uId], "-> sending to", emailAddr);
+      console.log("[emailNotifier]", perRecipient[uId], "-> sending to", emailAddr);
+      sendEmail(emailAddr, "You received new chat replies", NOTIF_MSG);
+      Notifs.remove({to: uId});
     }
-
   }).run();
 }
 
