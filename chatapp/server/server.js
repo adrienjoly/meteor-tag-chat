@@ -39,6 +39,7 @@ Meteor.methods({
   message: function(msg){
     if (this.userId && msg.uId === this.userId && msg.to && msg.message) {
       msg.time = Date.now();
+      Notifs.insert({ to: msg.to, from: msg.uId, time: msg.time });
       return Messages.insert(msg);
     }
     else
