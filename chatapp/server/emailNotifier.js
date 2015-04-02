@@ -26,12 +26,10 @@ function groupNotifsByRecipient(notifs){
 
 function checkNotifs(){
   Fiber(function () {
-    var now = new Date().getTime();
-    var twoHoursAgo = now - PENDING_NOTIF_DELAY;
+    var twoHoursAgo = new Date().getTime() - PENDING_NOTIF_DELAY;
     var notifs = Notifs.find({time: {$lt: twoHoursAgo}}).fetch();
     if (!notifs.length)
       return;
-    //console.log(notifs.map(function(a){return now - a.time}));
     console.log("[emailNotifier] pending notifications:", notifs.length);
     var perRecipient = groupNotifsByRecipient(notifs);
     for (var uId in perRecipient) {
