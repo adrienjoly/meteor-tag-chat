@@ -68,6 +68,11 @@ Template.home.events = {
   }
 };
 
+Template.home.rendered = function(){
+  if (!/localhost\:/.test(window.location.href))
+    GAnalytics.pageview();
+};
+
 // Chat room page
 
 Template.chatroom.helpers({

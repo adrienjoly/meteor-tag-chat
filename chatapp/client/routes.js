@@ -1,7 +1,6 @@
 // Routing
 
 Router.configure({
-  trackPageView: true, // for iron-router-ga (google analytics)
   layoutTemplate: 'layout',
   loadingTemplate: 'loading'
 });

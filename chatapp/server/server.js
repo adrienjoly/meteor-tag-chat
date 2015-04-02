@@ -3,7 +3,6 @@ Meteor.publish("myMessages", function() {
 });
 
 Meteor.publish("myNotifs", function() {
-  console.log("this user id", this.userId)
   return Notifs.find({to: this.userId}, { fields: { to:1, from: 1 }});
 });
 
