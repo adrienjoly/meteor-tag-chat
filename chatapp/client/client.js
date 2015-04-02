@@ -32,6 +32,9 @@ function drawDiscushapes(){
 }
 
 Template.disculink.helpers({
+  cleanTags: function(){
+    return (this.tags || []).join(", ");
+  },
   threadNotifs: function(){
     return Notifs.find({ from: this._id, to: Meteor.userId() });
   },

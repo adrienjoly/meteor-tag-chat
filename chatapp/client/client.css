@@ -1,16 +1,54 @@
 html {
-  padding: 10px;
+  padding: 5px;
   font-family: Verdana, sans-serif;
 }
 
-.login-buttons-dropdown-align-right {
-  float: right;
+* {
+  box-sizing: border-box;  
+}
+
+#login-buttons {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+}
+
+h1 {
+  font-size: 18px;
+}
+
+h2 {
+  font-size: 14px;
+}
+
+#mytags {
+  font-size: 16px;
+  width: 300px;
+}
+
+#pitch {
+  font-size: 11px;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  padding: 0;
 }
 
 .discushape {
   display: block;
   overflow: auto;
   padding: 5px;
+  text-decoration: none;
+  border: 0;
+}
+
+.discushape p {
+  line-height: 64px;
 }
 
 .discushape.selected {
@@ -22,9 +60,10 @@ html {
 }
 
 .discushape > canvas {
-  display: inline-block;
+  float: left;
   width: 100px;
   height: 100px;
+  margin-right: 10px;
   -webkit-user-select: none;
   touch-action: none;
   -webkit-user-drag: none;
@@ -37,6 +76,8 @@ body.chatting #mainpane {
   top: 0;
   height: 100%;
   width: 50%;
+  padding: 5px;
+  overflow-y: auto;
 }
 
 body.chatting #chatpane {
@@ -46,4 +87,7 @@ body.chatting #chatpane {
   height: 100%;
   width: 50%;
   border-left:1px solid gray;
+  padding: 5px;
+  overflow-y: auto;
+  background: white;
 }

@@ -1,5 +1,6 @@
 <template name="layout">
-    {{> yield}}
+  {{> loginButtons}}
+  {{> yield}}
 </template>
 
 <!-- common/shared templates -->
@@ -14,8 +15,10 @@
      data-uid="{{_id}}"
      data-tags="{{tagsOrId}}"
      title="{{tagsOrId}}">
-     {{tags}}
-     {{#if threadNotifs.count}}<span>({{threadNotifs.count}})</span>{{/if}}
+    <p>
+      {{cleanTags}}
+      {{#if threadNotifs.count}}<span>({{threadNotifs.count}})</span>{{/if}}
+    </p>
   </a>
 </template>
 
@@ -23,14 +26,13 @@
 
 <template name="home">
   <div id="mainpane">
-    {{> loginButtons align="right"}}
-    <h1>Tag Chat Prototype</h1>
+    <h1>Discuthing</h1>
     <form id="mytagsForm">
-      what are you about?
+      What are you about?
       <input type="text" id="mytags" placeholder="paris, piano, zzz, ..." value="{{mytagsStr}}">
       <input type="submit" name="ok" value="OK">
     </form>
-    <p>Have bits of talk with anyone sharing common interests with you at a specific moment. Select topics and see who's about it too. Shape your entourage, find people who care about the same things, at the same moment. Jump in, talk to someone or be talked to. Share moods, hobbies, ideas, travels, services...</p>
+    <p id="pitch">Have bits of talk with anyone sharing common interests with you at a specific moment. Select topics and see who's about it too. Shape your entourage, find people who care about the same things, at the same moment. Jump in, talk to someone or be talked to. Share moods, hobbies, ideas, travels, services...</p>
     <h2>Users:</h2>
     <ul>
     {{#each chatrooms}}
