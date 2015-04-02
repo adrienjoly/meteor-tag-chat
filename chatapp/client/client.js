@@ -71,6 +71,8 @@ Template.home.events = {
 Template.home.rendered = function(){
   if (!/localhost\:/.test(window.location.href))
     GAnalytics.pageview();
+  else
+    console.log("not using google analytics in dev mode");
 };
 
 // Chat room page
