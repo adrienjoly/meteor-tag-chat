@@ -62,7 +62,7 @@ Template.home.helpers({
     return (Meteor.user().tags || []).join(", ");
   },
   chatrooms: function() {
-    return Meteor.users.find({}); //[ {_id:"abc", name:"coucou"} ];
+    return Meteor.users.find({_id: {"$not": Meteor.userId()}}); //[ {_id:"abc", name:"coucou"} ];
   }
 });
 
