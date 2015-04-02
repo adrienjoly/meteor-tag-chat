@@ -1,7 +1,9 @@
 {
   "public" : {
-    "ga": {
-      "account":"UA-61482629-1"
+    "analyticsSettings": {
+      "Google Analytics" : {"trackingId": "UA-61482629-1"},
+      "Mixpanel"         : {"token":  "d9cc31daa0cc2eaea559d100a73536a8", "people": true},
+      "KISSmetrics"      : {"apiKey": "TcS60PF0OI2swyaxY4o_INQAeHVaJozDCT9oOFGGW1W1HmjVBtqQoekaJ_H2xWbY"}
     }
   }
 }

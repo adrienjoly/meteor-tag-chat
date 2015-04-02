@@ -56,19 +56,14 @@ Template.home.events = {
   'click .discushape': function(event){
     event.preventDefault();
     openChatRoom($(event.currentTarget).attr("data-uid"));
+    analytics.track("Open_thread");
   },
   'submit #mytagsForm' : function (event) {
     event.preventDefault();
     Meteor.call("setTags", document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/));
+    analytics.track("Set_tags");
     return false;
   }
-};
-
-Template.home.rendered = function(){
-  if (!/localhost\:/.test(window.location.href))
-    GAnalytics.pageview();
-  else
-    console.log("not using google analytics in dev mode");
 };
 
 // Chat room page
@@ -103,6 +98,7 @@ Template.chatroom.events = {
           message: message.value,
         });
         message.value = '';
+        analytics.track("Send_message");
       }
     }
   }

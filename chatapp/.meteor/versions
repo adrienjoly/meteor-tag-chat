@@ -10,7 +10,6 @@ blaze-tools@1.0.3
 boilerplate-generator@1.0.3
 callback-hook@1.0.3
 check@1.0.5
-datariot:ganalytics@0.2.1
 dburles:collection-helpers@1.0.3
 ddp@1.1.0
 deps@1.0.7
@@ -47,6 +46,7 @@ mongo@1.1.0
 mrt:modernizr-meteor@2.6.2
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
+okgrow:analytics@0.2.0
 ordered-dict@1.0.3
 random@1.0.3
 reactive-dict@1.1.0
