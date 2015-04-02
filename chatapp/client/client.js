@@ -46,7 +46,7 @@ Template.home.helpers({
     return Session.get('selectedThread');
   },
   mytagsStr: function() {
-    return (Meteor.user().tags || []).join(", ");
+    return ((Meteor.user() || {}).tags || []).join(", ");
   },
   chatrooms: function() {
     return Meteor.users.find({_id: {"$not": Meteor.userId()}}); //[ {_id:"abc", name:"coucou"} ];
