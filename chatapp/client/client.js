@@ -60,10 +60,7 @@ Template.home.events = {
   },
   'submit #mytagsForm' : function (event) {
     event.preventDefault();
-    Meteor.users.update(Meteor.userId(), { $set: {
-      tags: document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/)
-    }});
-    // Prevent default form submit
+    Meteor.call("setTags", document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/));
     return false;
   }
 };
@@ -101,11 +98,10 @@ Template.chatroom.events = {
       var uId = (Meteor.user() || {})._id;
       var message = document.getElementById('message');
       if (uId && message.value != '') {
-        Messages.insert({
+        Meteor.call("message", {
           uId: uId,
           to: Session.get("selectedThread"), //Router.current().params._id,
           message: message.value,
-          time: Date.now(),
         });
         message.value = '';
       }

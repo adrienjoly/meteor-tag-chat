@@ -1,3 +1,26 @@
+// client-side data access security
+
+function warnAndDeny(col, op){
+  return function (userId) {
+    console.log("warning: user", userId, "requests", col, op, "operation:", arguments);
+    return true;
+  }
+}
+
+function allOps(col){
+  return {
+    remove: warnAndDeny(col, "remove"),
+    insert: warnAndDeny(col, "insert"),
+    update: warnAndDeny(col, "update"),
+  };
+}
+
+Meteor.users.deny(allOps("Users"));
+Messages.deny(allOps("Messages"));
+Notifs.deny(allOps("Notifs"));
+
+// collections published for clients
+
 Meteor.publish("myMessages", function() {
   return Messages.find({$or: [{to: this.userId}, {uId: this.userId}]});
 });
@@ -10,34 +33,21 @@ Meteor.publish("userData", function() {
   return Meteor.users.find({}, { fields: { tags: 1 }});
 });
 
-Meteor.users.allow({
-  update: function (userId, user, fields, modifier) {
-    // can only change your own documents
-    if(user._id === userId)
-    {
-      Meteor.users.update({_id: userId}, modifier);
-      return true;
-    }
-    else return false;
-  }
-});
+// API
 
-Messages.allow({
-  insert: function (userId, msg) {
-    console.log("stroring message:", msg);
-    if(msg.uId === userId) {
-      var result = Messages.insert(msg);
-      Notifs.insert({ to: msg.to, from: msg.uId });
-      console.log("notifs: ", Notifs.find().fetch());
-      return result;
+Meteor.methods({
+  message: function(msg){
+    if (this.userId && msg.uId === this.userId && msg.to && msg.message) {
+      msg.time = Date.now();
+      return Messages.insert(msg);
     }
     else
       return false;
-  }
-});
-
-Meteor.methods({
+  },
+  setTags: function(tags){
+    return this.userId && Meteor.users.update({_id: this.userId}, {$set:{tags: tags}});
+  },
   clearNotifsFromUser: function(uId) {
-    return Notifs.remove({to: this.userId, from: uId});
+    return this.userId && Notifs.remove({to: this.userId, from: uId});
   }
 });
