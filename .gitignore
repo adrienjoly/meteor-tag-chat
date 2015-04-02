@@ -15,3 +15,4 @@ npm-debug.log
 /shapes
 /chatapp/client/compatibility/paper-full.min.js
 /chatapp/client/compatibility/shapes.js
+/chatapp/server/_smtp.js
