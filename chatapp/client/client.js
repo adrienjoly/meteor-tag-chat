@@ -7,14 +7,15 @@ Meteor.subscribe("userData");
 // Common functions
 
 function drawDiscushapes(){
-  $(".discushape.new").each(function(i, discushape){
-    var $discushape = $(discushape);
+  var tags = this.data.tags;
+  //$(".discushape.new").each(function(i, discushape){
+    var $discushape = $(this.firstNode); //$(discushape);
     if (window.drawTagsInCanvas)
-      drawTagsInCanvas(this.tags, $('<canvas>').prependTo($discushape)[0]);
+      drawTagsInCanvas(tags, $('<canvas>').prependTo($discushape)[0]);
     else
-      $(discushape).text(this.tags);
+      $discushape.text(tags);
     $discushape.removeClass("new");
-  });
+  //});
 }
 
 Template.disculink.helpers({
