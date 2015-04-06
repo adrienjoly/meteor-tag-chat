@@ -58,7 +58,7 @@ Template.home.helpers({
 Template.home.events = {
   'click .discushape': function(event){
     event.preventDefault();
-    openChatRoom($(event.currentTarget).attr("data-uid"));
+    openChatRoom(this._id);
     analytics.track("Open_thread");
   },
   'submit #mytagsForm' : function (event) {

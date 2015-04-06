@@ -49,6 +49,6 @@ Meteor.methods({
     return this.userId && Meteor.users.update({_id: this.userId}, {$set:{tags: tags}});
   },
   clearNotifsFromUser: function(uId) {
-    return this.userId && Notifs.remove({to: this.userId, from: uId});
+    return this.userId && uId && Notifs.remove({to: this.userId, from: uId});
   }
 });
