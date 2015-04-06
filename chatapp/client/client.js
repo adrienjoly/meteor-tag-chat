@@ -8,13 +8,15 @@ Meteor.subscribe("userData");
 
 function drawDiscushapes(){
   var tags = this.data.tags;
+  var $discushape = $(this.firstNode); //$(discushape);
   //$(".discushape.new").each(function(i, discushape){
-    var $discushape = $(this.firstNode); //$(discushape);
+  if ($discushape.hasClass("new")) {
     if (window.drawTagsInCanvas)
       drawTagsInCanvas(tags, $('<canvas>').prependTo($discushape)[0]);
     else
       $discushape.text(tags);
     $discushape.removeClass("new");
+  }
   //});
 }
 
