@@ -27,7 +27,7 @@ function groupNotifsByRecipient(notifs){
 function checkNotifs(){
   Fiber(function () {
     var twoHoursAgo = new Date().getTime() - PENDING_NOTIF_DELAY;
-    var notifs = Notifs.find({time: {$lt: twoHoursAgo}}).fetch();
+    var notifs = Notifs.find({sent: {$exists: false}, time: {$lt: twoHoursAgo}}).fetch();
     if (!notifs.length)
       return;
     console.log("[emailNotifier] pending notifications:", notifs.length);
@@ -36,7 +36,7 @@ function checkNotifs(){
       var emailAddr = Meteor.users.findOne(uId).emails[0].address;
       console.log("[emailNotifier]", perRecipient[uId], "-> sending to", emailAddr);
       sendEmail(emailAddr, "You received new chat replies", NOTIF_MSG);
-      Notifs.remove({to: uId});
+      Notifs.update({to: uId, time: {$lt: twoHoursAgo}}, {$set: {sent: true}}, {multi: true});
     }
   }).run();
 }
