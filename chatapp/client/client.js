@@ -35,6 +35,22 @@ Template.disculink.helpers({
 //Template.discushape.rendered = drawDiscushapes;
 Template.disculink.rendered = drawDiscushapes;
 
+Template.home.rendered = function () {
+    // cf http://stackoverflow.com/questions/21082628/using-bootstrap-tagsinput-plugin-in-meteor
+    var $tags = $('#mytags').removeData('tagsinput');
+    $(".bootstrap-tagsinput").remove();
+    $tags.tagsinput();
+    $tags
+      .on('itemAdded', function(event) {
+        console.log('added tag:', event.item);
+        $('#mytagsForm').submit();
+      })
+      .on('itemRemoved', function(event) {
+        console.log('removed tag:', event.item);
+        $('#mytagsForm').submit();
+      });
+}
+
 // Home page
 
 Template.home.helpers({
