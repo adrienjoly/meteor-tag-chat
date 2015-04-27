@@ -18,5 +18,5 @@ Router.route('/chatroom/:_id', function () {
 });
 
 Router.onAfterAction(function() {
-  document.title = 'Chat - ' + this.route.getName();
+  document.title = 'Chat - ' + (this.route.getName() || 'home');
 });
