@@ -10,7 +10,7 @@
 </template>
 
 <template name="disculink">
-  <a target="_blank" href="/chatroom/{{_id}}"
+  <a href="/chatroom/{{_id}}"
      class="discushape new {{#if isSelected}}selected{{/if}}"
      data-uid="{{_id}}"
      data-tags="{{tagsOrId}}"
@@ -26,7 +26,7 @@
 
 <template name="home">
   <div id="mainpane">
-    <h1>Discuthing</h1>
+    <h1><a href="/">Discuthing</a></h1>
     <form id="mytagsForm">
       What are you about?
       <input type="text" id="mytags" placeholder="paris, piano, zzz, ..." value="{{mytagsStr}}">

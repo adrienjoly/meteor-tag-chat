@@ -32,12 +32,6 @@ Template.disculink.helpers({
   }
 });
 
-function openChatRoom(id){
-  $("body").addClass("chatting");
-  Session.set("selectedThread", id);
-  Meteor.call('clearNotifsFromUser', id);
-}
-
 //Template.discushape.rendered = drawDiscushapes;
 Template.disculink.rendered = drawDiscushapes;
 
@@ -56,11 +50,6 @@ Template.home.helpers({
 });
 
 Template.home.events = {
-  'click .discushape': function(event){
-    event.preventDefault();
-    openChatRoom(this._id);
-    analytics.track("Open_thread");
-  },
   'submit #mytagsForm' : function (event) {
     event.preventDefault();
     Meteor.call("setTags", document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/));
