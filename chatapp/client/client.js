@@ -88,8 +88,8 @@ Template.chatroom.helpers({
   messages: function() {
     var otherUserId = Session.get("selectedThread"); //Router.current().params._id;
     return Messages.find({$or: [
-      { uId: Meteor.user()._id, to: otherUserId },
-      { uId: otherUserId, to: Meteor.user()._id }
+      { uId: Meteor.userId(), to: otherUserId },
+      { uId: otherUserId, to: Meteor.userId() }
     ]}, {sort: {time: -1}});
   }
 });
@@ -97,7 +97,7 @@ Template.chatroom.helpers({
 Template.chatroom.events = {
   'keydown input#message' : function (event) {
     if (event.which == 13) { // 13 is the enter key event
-      var uId = (Meteor.user() || {})._id;
+      var uId = Meteor.userId();
       var message = document.getElementById('message');
       if (uId && message.value != '') {
         Meteor.call("message", {
