@@ -35,20 +35,23 @@ Template.disculink.helpers({
 //Template.discushape.rendered = drawDiscushapes;
 Template.disculink.rendered = drawDiscushapes;
 
+function initTagInput(){
+  // cf http://stackoverflow.com/questions/21082628/using-bootstrap-tagsinput-plugin-in-meteor
+  var $tags = $('#mytags').removeData('tagsinput');
+  $(".bootstrap-tagsinput").remove();
+  $tags.tagsinput();
+}
+
 Template.home.rendered = function () {
-    // cf http://stackoverflow.com/questions/21082628/using-bootstrap-tagsinput-plugin-in-meteor
-    var $tags = $('#mytags').removeData('tagsinput');
-    $(".bootstrap-tagsinput").remove();
-    $tags.tagsinput();
-    $tags
-      .on('itemAdded', function(event) {
-        console.log('added tag:', event.item);
-        $('#mytagsForm').submit();
-      })
-      .on('itemRemoved', function(event) {
-        console.log('removed tag:', event.item);
-        $('#mytagsForm').submit();
-      });
+  $('#mytags')
+    .on('itemAdded', function(event) {
+      console.log('added tag:', event.item);
+      $('#mytagsForm').submit();
+    })
+    .on('itemRemoved', function(event) {
+      console.log('removed tag:', event.item);
+      $('#mytagsForm').submit();
+    });
 }
 
 // Home page
@@ -58,6 +61,7 @@ Template.home.helpers({
     return Session.get('selectedThread');
   },
   mytagsStr: function() {
+    setTimeout(initTagInput);
     return ((Meteor.user() || {}).tags || []).join(", ");
   },
   chatrooms: function() {
@@ -68,7 +72,9 @@ Template.home.helpers({
 Template.home.events = {
   'submit #mytagsForm' : function (event) {
     event.preventDefault();
-    Meteor.call("setTags", document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/));
+    var tags = document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/);
+    console.log("updating tags:", tags)
+    Meteor.call("setTags", tags);
     analytics.track("Set_tags");
     return false;
   }

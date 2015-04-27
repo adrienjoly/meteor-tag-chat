@@ -46,6 +46,7 @@ Meteor.methods({
       return false;
   },
   setTags: function(tags){
+    console.log("setting user tags", this.userId, tags)
     return this.userId && Meteor.users.update({_id: this.userId}, {$set:{tags: tags}});
   },
   clearNotifsFromUser: function(uId) {
