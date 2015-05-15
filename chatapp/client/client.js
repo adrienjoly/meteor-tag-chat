@@ -61,7 +61,8 @@ Template.tagsSelector.helpers({
     Meteor.users.find().fetch().map(function(user){
       for (var i in user.tags) {
         var tagName = user.tags[i];
-        tagsCount[tagName] = (tagsCount[tagName] || 0) + 1;
+        if (tagName)
+          tagsCount[tagName] = (tagsCount[tagName] || 0) + 1;
       }
     });
     var tagsArray = [];
