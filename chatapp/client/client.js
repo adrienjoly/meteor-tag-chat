@@ -68,7 +68,9 @@ Template.tagsSelector.helpers({
     var tagsArray = [];
     for (var name in tagsCount)
       tagsArray.push({name: name, count: tagsCount[name]});
-    return tagsArray;
+    return tagsArray.sort(function(a, b){
+      return b.count - a.count;
+    });
   },
 });
 
