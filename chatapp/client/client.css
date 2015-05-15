@@ -110,6 +110,10 @@ body/*.chatting*/ #chatpane {
   left: 0;
 }
 
+#new-tag.invalid {
+  background-color: #ffeeee !important;
+}
+
 .my-tag-list {
   position: absolute;
   top: 0;

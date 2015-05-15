@@ -79,7 +79,9 @@ Template.tagsSelector.events({
     analytics.track("Set_tags");
   },
   'keyup #new-tag': function(event){
-    if (event.keyCode == 13) {
+    var valid = isValidTag(event.currentTarget.value);
+    $(event.currentTarget).toggleClass('invalid', !valid);
+    if (valid && event.keyCode == 13) {
       $(event.currentTarget).closest('form').submit();
     }
   },
