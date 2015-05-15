@@ -22,19 +22,48 @@
   </a>
 </template>
 
+<template name="suggestedTag">
+  <div class="suggested-tag">
+    <div class="suggested-tag__name">{{name}}</div>
+    <div class="suggested-tag__count">{{count}}</div>
+  </div>
+</template>
+
+<template name="tag">
+  {{name}}
+</template>
+
+<template name="tagsSelector">
+  <form class="tag-selector">
+    <!--<input type="text" id="mytags" placeholder="add a topic..." value="{{mytagsStr}}" data-role="tagsinput">-->
+    <input type="text" id="new-tag"
+      placeholder="What are you about?"
+      autocomplete="off"
+      spellcheck="off"
+      class="form-control typeahead"
+      data-source="tagsTypeAhead"
+      data-min-length="0"
+      data-value-key="name"
+      data-autoselect="true"
+      data-template="suggestedTag"
+      data-selected="selected"
+      data-opened="opened"
+      data-closed="closed">
+    <ul class="my-tag-list">
+      {{#each myTags}}
+        <li class="my-tag-list__item">{{> tag}}</li>
+      {{/each}}    
+    </ul>
+  </form>
+</template>
+
 <!-- home page (after login) -->
 
 <template name="home">
   <div id="mainpane">
-    <h1><a href="/">Discuthing</a></h1>
-    <form id="mytagsForm">
-      What are you about?
-      {{#if currentUser }}
-      <input type="text" id="mytags" placeholder="add a topic..." value="{{mytagsStr}}" data-role="tagsinput">
-      {{/if}}
-    </form>
-    <p id="pitch">Have bits of talk with anyone sharing common interests with you at a specific moment. Select topics and see who's about it too. Shape your entourage, find people who care about the same things, at the same moment. Jump in, talk to someone or be talked to. Share moods, hobbies, ideas, travels, services...</p>
+    <h1><a href="/">Talebot</a></h1>
   {{#if currentUser }}
+    {{> tagsSelector}}
     <h2>Users:</h2>
     <ul>
     {{#each chatrooms}}
@@ -42,6 +71,8 @@
     {{/each}}    
     </ul>
   {{else}}
+    <h2>What are you about?</h2>
+    <p id="pitch">Have bits of talk with anyone sharing common interests with you at a specific moment. Select topics and see who's about it too. Shape your entourage, find people who care about the same things, at the same moment. Jump in, talk to someone or be talked to. Share moods, hobbies, ideas, travels, services...</p>
     {{#if loggingIn }}
       logging in...
     {{else}}

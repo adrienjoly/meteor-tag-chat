@@ -35,59 +35,64 @@ Template.disculink.helpers({
 //Template.discushape.rendered = drawDiscushapes;
 Template.disculink.rendered = drawDiscushapes;
 
-// Tags input
+// Tag selector
 
-var tagIndex = new Bloodhound({
-  minLength: 0,
-  local: [{name:' dog'}, {name:'pig'}, {name:'moose'}],
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  // sorter: A compare function used to sort data returned from the internal search index
-  /*
-  prefetch: {
-    url: 'assets/citynames.json',
-    filter: function(list) {
-      return $.map(list, function(cityname) {
-        return { name: cityname }; });
-    }
-  }
-  */
-});
-tagIndex.initialize();
+Template.tagsSelector.rendered = function () {
+  Meteor.typeahead.inject();
+};
 
-function initTagInput(){
-  // cf http://stackoverflow.com/questions/21082628/using-bootstrap-tagsinput-plugin-in-meteor
-  var $tags = $('#mytags').removeData('tagsinput');
-  $(".bootstrap-tagsinput").remove();
-  $tags.tagsinput({
-    typeaheadjs: {
-      minLength: 0,
-      name: 'tagIndex',
-      displayKey: 'name',
-      valueKey: 'name',
-      source: tagIndex.ttAdapter()
-    }
-    /*
-    typeahead: ["coucou"] {
-      source: function(query) {
-        return ["coucou"]; //$.get('http://someservice.com');
-      }
-    }
-    */
-  });
-}
-
-Template.home.rendered = function () {
-  $('#mytags')
-    .on('itemAdded', function(event) {
-      console.log('added tag:', event.item);
-      $('#mytagsForm').submit();
-    })
-    .on('itemRemoved', function(event) {
-      console.log('removed tag:', event.item);
-      $('#mytagsForm').submit();
+Template.tagsSelector.helpers({
+  myTags: function() {
+    return ((Meteor.user() || {}).tags || []).map(function(tag){
+      return {name: tag};
     });
-}
+  },
+  opened: function(){
+    $("#new-tag").attr("placeholder", "");
+  },
+  selected: function(event){
+    $(event.currentTarget).closest('form').submit();
+  },
+  closed: function(){
+    $("#new-tag").attr("placeholder", "What are you about?");
+  },
+  tagsTypeAhead: function(){
+    var tagsCount = {};
+    Meteor.users.find().fetch().map(function(user){
+      for (var i in user.tags) {
+        var tagName = user.tags[i];
+        tagsCount[tagName] = (tagsCount[tagName] || 0) + 1;
+      }
+    });
+    var tagsArray = [];
+    for (var name in tagsCount)
+      tagsArray.push({name: name, count: tagsCount[name]});
+    return tagsArray;
+  },
+});
+
+Template.tagsSelector.events({
+  'click .my-tag-list__item': function(event){
+    var tag = this.name;
+    console.log("removing tag:", tag);
+    Meteor.call("removeTag", tag);
+    analytics.track("Set_tags");
+  },
+  'keyup #new-tag': function(event){
+    if (event.keyCode == 13) {
+      $(event.currentTarget).closest('form').submit();
+    }
+  },
+  'submit form' : function (event) {
+    event.preventDefault();
+    var tag = $("#new-tag").val();
+    console.log("adding tag:", tag);
+    Meteor.call("addTag", tag);
+    $("#new-tag").val("");
+    analytics.track("Set_tags");
+    return false;
+  }
+});
 
 // Home page
 
@@ -96,7 +101,6 @@ Template.home.helpers({
     return Session.get('selectedThread');
   },
   mytagsStr: function() {
-    setTimeout(initTagInput);
     return ((Meteor.user() || {}).tags || []).join(", ");
   },
   chatrooms: function() {
@@ -110,14 +114,6 @@ Template.home.events = {
     $('#login-sign-in-link').click();
     return false;
   },
-  'submit #mytagsForm' : function (event) {
-    event.preventDefault();
-    var tags = document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/);
-    console.log("updating tags:", tags)
-    Meteor.call("setTags", tags);
-    analytics.track("Set_tags");
-    return false;
-  }
 };
 
 // Chat room page

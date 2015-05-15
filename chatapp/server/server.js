@@ -45,6 +45,14 @@ Meteor.methods({
     else
       return false;
   },
+  addTag: function(tag){
+    console.log("adding user tag", this.userId, tag)
+    return this.userId && Meteor.users.update({_id: this.userId}, {$addToSet: {tags: tag}});
+  },
+  removeTag: function(tag){
+    console.log("removing user tag", this.userId, tag)
+    return this.userId && Meteor.users.update({_id: this.userId}, {$pull: {tags: tag}});
+  },
   setTags: function(tags){
     console.log("setting user tags", this.userId, tags)
     return this.userId && Meteor.users.update({_id: this.userId}, {$set:{tags: tags}});

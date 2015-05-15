@@ -97,3 +97,52 @@ body/*.chatting*/ #chatpane {
   overflow-y: auto;
   background: white;
 }
+
+/* TAG SELECTOR COMPONENT */
+
+.tag-selector {
+  position: relative;
+}
+
+#new-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.my-tag-list {
+  position: absolute;
+  top: 0;
+  left: 180px;
+  line-height: 24px;
+  padding: 5px;
+}
+
+.my-tag-list__item {
+  float: left;
+  margin-right: 10px;
+}
+
+.tt-dropdown-menu {
+  background-color: white;
+  border: 1px solid #eee;
+  padding: 2px;
+}
+
+.tt-suggestions {
+  width: 200px;
+}
+
+.tt-suggestion.tt-cursor {
+  background-color: #eee;
+}
+
+.suggested-tag {
+  position: relative;
+}
+
+.suggested-tag__count {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+}
