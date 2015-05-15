@@ -105,6 +105,11 @@ Template.home.helpers({
 });
 
 Template.home.events = {
+  'click .login-link': function (event) {
+    event.preventDefault();
+    $('#login-sign-in-link').click();
+    return false;
+  },
   'submit #mytagsForm' : function (event) {
     event.preventDefault();
     var tags = document.getElementById("mytags").value.trim().toLowerCase().split(/[ ,]+/);
