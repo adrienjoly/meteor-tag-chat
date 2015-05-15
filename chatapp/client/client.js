@@ -93,7 +93,7 @@ Template.tagsSelector.events({
     var tag = $("#new-tag").val();
     console.log("adding tag:", tag);
     Meteor.call("addTag", tag);
-    $("#new-tag").val("");
+    $('.typeahead').typeahead('val', '');
     analytics.track("Set_tags");
     return false;
   }
