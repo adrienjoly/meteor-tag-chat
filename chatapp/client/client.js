@@ -101,13 +101,20 @@ Template.tagsSelector.events({
 
 // Home page
 
+function chatroomsWithNotifs(withNotifs){
+  return function(){
+    return Meteor.users.find({_id: {"$not": Meteor.userId()}}).fetch().filter(function(user){
+      return withNotifs === !!Notifs.find({ from: user._id, to: Meteor.userId() }).fetch().length;
+    }); // => [ {_id:"abc", name:"coucou"} ];
+  }
+}
+
 Template.home.helpers({
   selectedThread: function() {
     return Session.get('selectedThread');
   },
-  chatrooms: function() {
-    return Meteor.users.find({_id: {"$not": Meteor.userId()}}); //[ {_id:"abc", name:"coucou"} ];
-  }
+  activeChatrooms: chatroomsWithNotifs(true),
+  otherChatrooms: chatroomsWithNotifs(false)
 });
 
 Template.home.events = {

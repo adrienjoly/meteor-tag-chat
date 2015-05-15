@@ -73,7 +73,10 @@
     {{> tagsSelector}}
     <h2>Users:</h2>
     <ul>
-    {{#each chatrooms}}
+    {{#each activeChatrooms}}
+      <li>{{> disculink}}</li>
+    {{/each}}    
+    {{#each otherChatrooms}}
       <li>{{> disculink}}</li>
     {{/each}}    
     </ul>
