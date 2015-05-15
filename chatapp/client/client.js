@@ -35,11 +35,46 @@ Template.disculink.helpers({
 //Template.discushape.rendered = drawDiscushapes;
 Template.disculink.rendered = drawDiscushapes;
 
+// Tags input
+
+var tagIndex = new Bloodhound({
+  minLength: 0,
+  local: [{name:' dog'}, {name:'pig'}, {name:'moose'}],
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  // sorter: A compare function used to sort data returned from the internal search index
+  /*
+  prefetch: {
+    url: 'assets/citynames.json',
+    filter: function(list) {
+      return $.map(list, function(cityname) {
+        return { name: cityname }; });
+    }
+  }
+  */
+});
+tagIndex.initialize();
+
 function initTagInput(){
   // cf http://stackoverflow.com/questions/21082628/using-bootstrap-tagsinput-plugin-in-meteor
   var $tags = $('#mytags').removeData('tagsinput');
   $(".bootstrap-tagsinput").remove();
-  $tags.tagsinput();
+  $tags.tagsinput({
+    typeaheadjs: {
+      minLength: 0,
+      name: 'tagIndex',
+      displayKey: 'name',
+      valueKey: 'name',
+      source: tagIndex.ttAdapter()
+    }
+    /*
+    typeahead: ["coucou"] {
+      source: function(query) {
+        return ["coucou"]; //$.get('http://someservice.com');
+      }
+    }
+    */
+  });
 }
 
 Template.home.rendered = function () {
