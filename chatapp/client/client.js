@@ -103,9 +103,16 @@ Template.tagsSelector.events({
 
 function chatroomsWithNotifs(withNotifs){
   return function(){
-    return Meteor.users.find({_id: {"$not": Meteor.userId()}}).fetch().filter(function(user){
-      return withNotifs === !!Notifs.find({ from: user._id, to: Meteor.userId() }).fetch().length;
-    }); // => [ {_id:"abc", name:"coucou"} ];
+    function similarity(tags){
+      return _.intersection(Meteor.user().tags, tags).length;
+    }
+    return Meteor.users.find({_id: {"$not": Meteor.userId()}}).fetch() // => [ {_id:"abc", name:"coucou"} ];
+      .filter(function(user){
+        return withNotifs === !!Notifs.find({ from: user._id, to: Meteor.userId() }).fetch().length;
+      })
+      .sort(function(userA, userB){
+        return similarity(userB.tags) - similarity(userA.tags);
+      });
   }
 }
 
