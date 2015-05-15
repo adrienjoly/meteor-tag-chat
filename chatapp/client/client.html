@@ -5,10 +5,6 @@
 
 <!-- common/shared templates -->
 
-<template name="loginPage">
-  please login
-</template>
-
 <template name="disculink">
   <a href="/chatroom/{{_id}}"
      class="discushape new {{#if isSelected}}selected{{/if}}"
@@ -21,6 +17,8 @@
     </p>
   </a>
 </template>
+
+<!-- tag selector component -->
 
 <template name="suggestedTag">
   <div class="suggested-tag">
@@ -35,7 +33,6 @@
 
 <template name="tagsSelector">
   <form class="tag-selector">
-    <!--<input type="text" id="mytags" placeholder="add a topic..." value="{{mytagsStr}}" data-role="tagsinput">-->
     <input type="text" id="new-tag"
       placeholder="What are you about?"
       autocomplete="off"
@@ -57,7 +54,17 @@
   </form>
 </template>
 
-<!-- home page (after login) -->
+<!-- chat room page -->
+
+<template name="chatroom">
+  <h1>User: {{otherUser.tagsOrId}}</h1>
+  <p>Message: <input type="text" id="message"></p>
+  {{#each messages}}
+    <strong>{{name}}:</strong> {{message}}<br>
+  {{/each}}
+</template>
+
+<!-- home page -->
 
 <template name="home">
   <div id="mainpane">
@@ -85,14 +92,4 @@
     {{> chatroom}}
   </div>
   {{/if}}
-</template>
-
-<!-- chat room page -->
-
-<template name="chatroom">
-  <h1>User: {{otherUser.tagsOrId}}</h1>
-  <p>Message: <input type="text" id="message"></p>
-  {{#each messages}}
-    <strong>{{name}}:</strong> {{message}}<br>
-  {{/each}}
 </template>
